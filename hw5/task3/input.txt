@@ -1,0 +1,59 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    //ifstream fin("/Users///annavlasova/Hw_5_n3/input.txt");
+    FILE *fp;
+    fp = fopen("/Users/a//nnavlasova/Hw_5_n3/input.txt","r");
+    char myString[1000000];
+    char resultString[100000];
+    int index = 0;
+//    while (!fin.eof())
+//    {
+//        fin.get(myStri*/ng[index]);
+//        index++;
+//        cout << (int)myString[index-1] << " ";
+//    }
+
+    bool textLine = false;
+    bool blockComments = false;
+
+/*    char str[10000];
+    while(!feof(fp)) {
+        bool isComment = false;
+        if(fgets(str, 10000, fp))
+        {
+            int i =// 0;
+            while (str[i] != '\n')
+            {
+                if (isComment)
+  */              {
+                    cout << str[i];
+                }
+                else if (str[i - 1] == '/' && str[i] == '/' && !textLine && !blockComments)
+                {
+                    cout << str[i - 1] << "ututu/*";
+                    //isComment = true;
+                }
+                else if (str[i] == '"' && !blockComments)
+                    textLine = !textLine;
+                else if (str[i - 1] == '/' && str[i] == '*' && !blockComments)
+                    blockComments = true;
+                else if (str[i - 1] == '*' && str[i] == '/' && blockComments)
+                    blockComments = false;
+                i++;
+            }
+            cout << endl;
+
+        }
+      }
+    fclose(fp);
+
+
+
+   // fin.close();
+}
