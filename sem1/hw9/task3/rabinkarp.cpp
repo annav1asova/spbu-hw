@@ -2,13 +2,14 @@
 #include <iostream>
 #include "rabinkarp.h"
 
-long int hash(char substring[], int m, int power[], long int module)
+long long hash(char substring[], int m, long int *power, long int module)
 {
-    int hashCode = 0;
+    long long hashCode = 0;
     for (int i = 0; i < m; i++)
     {
         hashCode += ((substring[i] - 'a') * power[m - i - 1]) % module;
     }
+    hashCode = hashCode % module;
     return hashCode;
 }
 
@@ -25,9 +26,9 @@ bool equals(char string[], char substring[], int i, int m)
 
 void rabinKarp(char *string, char *substring)
 {
-    const int m = strlen(substring);
+    int m = strlen(substring);
     const int n = strlen(string);
-    int *power = new int[m];
+    long int *power = new long int[m];
     power[0] = 1;
     int p = 139;
     long int module = 1073676287;
@@ -37,9 +38,9 @@ void rabinKarp(char *string, char *substring)
     }
     long int substringHash = hash(substring, m, power, module);
     long int stringHash = hash(string, m, power, module);
-
+    
     bool found = false;
-
+    
     for (int i = 0; i < n - m + 1; i++)
     {
         if (stringHash == substringHash)
@@ -59,5 +60,6 @@ void rabinKarp(char *string, char *substring)
     }
     if (!found)
         std::cout << "Не найдено вхождений" << std::endl;
+    
+    delete [] power;
 }
-
