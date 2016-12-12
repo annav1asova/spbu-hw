@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -25,7 +26,8 @@ bool isE(char s)
 bool isCorrectDouble (char string[])
 {
     int state = 0;
-    for (int i = 0; i < strlen(string); i++)
+    int length = strlen(string);
+    for (int i = 0; i < length; i++)
     {
         char symb = string[i];
         switch (state)
@@ -98,10 +100,11 @@ bool isCorrectDouble (char string[])
 
 int main()
 {
+    cout << "Введите строку: " << endl;
     char string[100] = {""};
     cin >> string;
     if (isCorrectDouble(string))
-        cout << "Your string is correct real number" << endl;
+        cout << "Ваша строка является вещественным числом" << endl;
     else
-        cout << "Your string isn't correct real number" << endl;
+        cout << "Ваша строка не является вещественным числом" << endl;
 }
