@@ -149,4 +149,3 @@ void decoding(Tree *tree, char encodedText[])
     fout << endl;
     fout.close();
 }
-
