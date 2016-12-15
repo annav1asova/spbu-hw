@@ -30,7 +30,7 @@ Tree *getTree(int frequencies[])
     return resultTree;
 }
 
-void output(Tree *tree, char **codes)
+void output(Tree *tree, char codes[256][codeSize])
 {
     FILE *fin = fopen("input.txt","r");
     ofstream fout;

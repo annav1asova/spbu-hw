@@ -21,6 +21,7 @@ PriorityQueue* createQueue()
     queue->size = 0;
     return queue;
 }
+
 QueueElement *createNewElement(Tree *value, int key, QueueElement *next)
 {
     QueueElement *newElement = new QueueElement;
@@ -80,6 +81,7 @@ void deleteQueue(PriorityQueue *queue)
         deleteTree(toDelete->value);
         delete toDelete;
     }
+    deleteTree(queue->head->value);
     delete queue->head;
     delete queue;
 }

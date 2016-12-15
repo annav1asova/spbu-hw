@@ -15,7 +15,8 @@ int main()
     {
         cout << "File doesn't exist :(";
     }
-    else{
+    else
+    {
         while(!feof(fp))
         {
             if(fgets(string, 1000, fp))
@@ -30,9 +31,9 @@ int main()
             }
         }
 
-        cout << string;
         Tree *tree = getTree(frequencies);
-        char **codes = getCodes(tree);
+        char codes[256][codeSize] = {"\0"};
+        getCodes(tree, codes);
         output(tree, codes);
 
         deleteTree(tree);

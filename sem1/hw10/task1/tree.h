@@ -1,6 +1,11 @@
 #include <fstream>
 
+#ifndef _TREE_H_
+#define _TREE_H_
+
 using namespace std;
+
+const int codeSize = 16;
 
 struct Tree;
 
@@ -17,4 +22,7 @@ void printAscendingTree(Tree *tree);
 void printDescendingTree(Tree *tree);
 
 int key(Tree *tree);
-char **getCodes(Tree *tree);
+void getCodes(Tree *tree, char codes[256][codeSize]);
+
+#endif
+

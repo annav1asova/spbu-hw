@@ -9,7 +9,7 @@ struct TreeNode
    int value;
    TreeNode *leftChild;
    TreeNode *rightChild;
-   char *code;
+   char code[codeSize];
 };
 
 struct Tree
@@ -32,6 +32,8 @@ TreeNode *createNewNode(int value, TreeNode *left, TreeNode *right)
     node->value = value;
     node->leftChild = left;
     node->rightChild = right;
+    for (int i = 0; i < codeSize; i++)
+        node->code[i] = '\0';
     return node;
 }
 
@@ -120,24 +122,19 @@ bool exists(Tree *tree, int value)
     return exists(tree->root, value);
 }
 
-char *stringAdd(char *str, char ch)
+void stringAdd(char *str, char ch, char codes[codeSize])
 {
-    if (str == nullptr)
+    if (str[0] == '\0')
     {
-        char *newString = new char[1];
-        newString[0] = ch;
-        newString[1] = '\0';
-        return newString;
+        codes[0] = ch;
+        return;
     }
     int length = strlen(str);
-    char *newString = new char[length + 1];
     for (int i = 0; i < length; i++)
     {
-        newString[i] = str[i];
+        codes[i] = str[i];
     }
-    newString[length] = ch;
-    newString[length + 1] = '\0';
-    return newString;
+    codes[length] = ch;
 }
 
 int key(Tree *tree)
@@ -145,32 +142,26 @@ int key(Tree *tree)
     return tree->key;
 }
 
-void getCodes(TreeNode *node, int length, char **codes)
+void getCodes(TreeNode *node, char codes[256][codeSize])
 {
     if (node->leftChild == nullptr)
     {
-        codes[node->value] = new char[length + 1];
-        strcpy(codes[node->value], node->code);
+        for (int i = 0; i < codeSize; i++)
+        {
+            codes[node->value][i] = node->code[i];
+        }
         return;
     }
 
-    node->leftChild->code = stringAdd(node->code, '0');
-    node->rightChild->code = stringAdd(node->code, '1');
+    stringAdd(node->code, '0', node->leftChild->code);
+    stringAdd(node->code, '1', node->rightChild->code);
 
-    length++;
-
-    getCodes(node->leftChild, length, codes);
-    getCodes(node->rightChild, length, codes);
+    getCodes(node->leftChild, codes);
+    getCodes(node->rightChild, codes);
 }
 
-char **getCodes(Tree *tree)
+void getCodes(Tree *tree, char codes[256][codeSize])
 {
-    char **codes = new char*[256];
-    for (int i = 0; i < 256; i++)
-        codes[i] = nullptr;
-
-    tree->root->code = "";
-    getCodes(tree->root, 0, codes);
-    return codes;
+    strcpy(tree->root->code, "");
+    getCodes(tree->root, codes);
 }
-
