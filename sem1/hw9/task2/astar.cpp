@@ -53,6 +53,7 @@ Point *considerAdjacent(Point *point, int **map, bool **used, PriorityQueue *que
 
 void printMap(int **map, int n, int m)
 {
+    cout << "Искомый путь помечен #: " << endl;
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
