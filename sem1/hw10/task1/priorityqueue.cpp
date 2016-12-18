@@ -61,9 +61,11 @@ Tree *extractMin(PriorityQueue *queue)
     if (isEmpty(queue))
         return nullptr;
 
+    QueueElement *toExtract = queue->head;
     Tree *minPrioritySymbol = queue->head->value;
     queue->head = queue->head->next;
     queue->size--;
+    delete toExtract;
     return minPrioritySymbol;
 }
 

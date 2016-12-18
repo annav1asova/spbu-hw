@@ -44,6 +44,8 @@ Tree *createTreeWithKidsTrees(Tree *first, Tree *second)
     newTree->root->leftChild = first->root;
     newTree->root->rightChild = second->root;
     newTree->key = first->key + second->key;
+    delete first;
+    delete second;
     return newTree;
 }
 
