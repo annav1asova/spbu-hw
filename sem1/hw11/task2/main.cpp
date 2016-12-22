@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <parser.h>
+#include <string.h>
+#include "parser.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int main()
         char string[1000] = {'\0'};
         fin.getline(string, 1000);
         int index = 0;
-        if (E(string, index))
+        if (E(string, index) && index == strlen(string))
             cout << "Строка является арифметическим выражением" << endl;
         else
             cout << "Строка не является арифметическим выражением" << endl;

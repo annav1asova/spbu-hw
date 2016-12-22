@@ -7,9 +7,6 @@
 //      T -> NT1
 //      T1 -> *T | /T | e
 
-using namespace std;
-#include <iostream>
-
 bool E(char [], int &);
 bool E1(char [], int &);
 bool T(char [], int &);
