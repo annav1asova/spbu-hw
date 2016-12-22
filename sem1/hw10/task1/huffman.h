@@ -1,3 +1,5 @@
+#pragma once
+
 #include <tree.h>
 
 Tree *getTree(int frequencies[]);

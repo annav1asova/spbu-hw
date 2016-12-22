@@ -1,7 +1,6 @@
-#include <fstream>
+#pragma once
 
-#ifndef _TREE_H_
-#define _TREE_H_
+#include <fstream>
 
 using namespace std;
 
@@ -24,5 +23,5 @@ void printDescendingTree(Tree *tree);
 int key(Tree *tree);
 void getCodes(Tree *tree, char codes[256][codeSize]);
 
-#endif
+
 
