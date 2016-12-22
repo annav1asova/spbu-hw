@@ -1,3 +1,5 @@
+#pragma once
+
 #include "astar.h"
 
 struct PriorityQueue;

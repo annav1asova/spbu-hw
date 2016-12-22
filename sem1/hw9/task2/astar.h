@@ -1,5 +1,4 @@
-#ifndef _ASTAR_H_
-#define _ASTAR_H_
+#pragma once
 
 struct Point
 {
@@ -12,4 +11,3 @@ struct Point
 
 void astar(int **map, int n, int m, int startX, int startY, int finishX, int finishY);
 
-#endif
