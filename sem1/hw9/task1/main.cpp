@@ -42,4 +42,5 @@ int main()
     {
         delete [] matrix[i];
     }
+    delete matrix;
 }
