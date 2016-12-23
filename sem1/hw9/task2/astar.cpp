@@ -113,4 +113,5 @@ void astar(int **map, int n, int m, int startX, int startY, int finishX, int fin
     deleteQueue(queue);
     for (int i = 0; i < n; i++)
         delete [] used[i];
+    delete [] used;
 }

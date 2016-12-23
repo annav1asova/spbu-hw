@@ -76,9 +76,11 @@ void deleteQueue(PriorityQueue *queue)
     while (queue->head->next != nullptr)
     {
         QueueElement *toDelete = queue->head;
+        delete toDelete->point;
         queue->head = queue->head->next;
         delete toDelete;
     }
+    delete queue->head->point;
     delete queue->head;
     delete queue;
 }
@@ -100,7 +102,7 @@ Point *exists(PriorityQueue *queue, int x, int y)
         return nullptr;
 }
 
-void remove (PriorityQueue *queue, int x, int y)
+void remove(PriorityQueue *queue, int x, int y)
 {
     if (isEmpty(queue))
         return;
