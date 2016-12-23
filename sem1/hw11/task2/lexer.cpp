@@ -23,73 +23,74 @@ bool isE(char s)
 bool isCorrectDouble(char string[], int &index)
 {
     int state = 0;
+    enum State {signOrFirstDigit, firstOrSecondDigit, digitsBeforeDorOrE, firstDigitAfterDot, digitsAfterDotOrE, singEOrFirstDigitOfPower, firstOrSecondDigitOfPower, powerDigits};
     while (string[index] != ' ' && string[index] != '\n' && string[index] != '\0')
     {
         char symb = string[index];
         switch (state)
         {
-            case 0:
+            case signOrFirstDigit:
                 if (isSign(symb))
-                    state = 1;
+                    state = firstOrSecondDigit;
                 else if (isDigit(symb))
-                    state = 2;
+                    state = digitsBeforeDorOrE;
                 else
                     return false;
                 break;
-            case 1:
+            case firstOrSecondDigit:
                 if (isDigit(symb))
-                    state = 2;
+                    state = digitsBeforeDorOrE;
                 else
                     return false;
                 break;
-            case 2:
+            case digitsBeforeDorOrE:
                 if (isDigit(symb))
-                    state = 2;
+                    state = digitsBeforeDorOrE;
                 else if (isDot(symb))
-                    state = 3;
+                    state = firstDigitAfterDot;
                 else if (isE(symb))
-                    state = 5;
+                    state = singEOrFirstDigitOfPower;
                 else
                     return false;
                 break;
-            case 3:
+            case firstDigitAfterDot:
                 if (isDigit(symb))
-                    state = 4;
+                    state = digitsAfterDotOrE;
                 else
                     return false;
                 break;
-            case 4:
+            case digitsAfterDotOrE:
                 if (isDigit(symb))
-                    state = 4;
+                    state = digitsAfterDotOrE;
                 else if (isE(symb))
-                    state = 5;
+                    state = singEOrFirstDigitOfPower;
                 else
                     return false;
                 break;
-            case 5:
+            case singEOrFirstDigitOfPower:
                 if (isSign(symb))
-                    state = 6;
+                    state = firstOrSecondDigitOfPower;
                 else if (isDigit(symb))
-                    state = 7;
+                    state = powerDigits;
                 else
                     return false;
                 break;
-            case 6:
+            case firstOrSecondDigitOfPower:
                 if (isDigit(symb))
-                    state = 7;
+                    state = powerDigits;
                 else
                     return false;
                 break;
-            case 7:
+            case powerDigits:
                 if (isDigit(symb))
-                    state = 7;
+                    state = powerDigits;
                 else
                     return false;
                 break;
         }
         index++;
     }
-    if (state == 2 || state == 4 || state == 7)
+    if (state == digitsBeforeDorOrE || state == digitsAfterDotOrE || state == powerDigits)
         return true;
     else
         return false;
