@@ -22,6 +22,7 @@ Point *considerPoint(int x, int y, PriorityQueue *queue, Point *prevPoint, int f
     if (point == nullptr || (point != nullptr && prevPoint->lengthFromStart + 1 < point->lengthFromStart))
     {
         Point *newPoint = new Point;
+        //cout << "created Point " << newPoint << '\n';
         newPoint->x = x;
         newPoint->y = y;
         newPoint->heuristic = heuristicFunction(newPoint, finishX, finishY);
@@ -70,7 +71,7 @@ void printMap(int **map, int n, int m)
 void astar(int **map, int n, int m, int startX, int startY, int finishX, int finishY)
 {
     PriorityQueue* queue = createQueue();
-
+    PriorityQueue* extracted = createQueue();
     bool **used = new bool*[n];
     for (int i = 0; i < n; i++)
     {
@@ -81,6 +82,7 @@ void astar(int **map, int n, int m, int startX, int startY, int finishX, int fin
         }
     }
     Point *start = new Point;
+    //cout << "created Point " << start << '\n';
     start->x = startX;
     start->y = startY;
 
@@ -89,6 +91,7 @@ void astar(int **map, int n, int m, int startX, int startY, int finishX, int fin
     while (!isEmpty(queue))
     {
         Point *current = extractMin(queue);
+        add(extracted, current, 0);
         used[current->x][current->y] = true;
         finishPrevOrNothing = considerAdjacent(current, map, used, queue, finishX, finishY, n, m);
         if (finishPrevOrNothing != nullptr)
@@ -108,9 +111,8 @@ void astar(int **map, int n, int m, int startX, int startY, int finishX, int fin
         map[startX][startY] = 2;
         printMap(map, n, m);
     }
-    delete start;
-    delete finishPrevOrNothing;
     deleteQueue(queue);
+    deleteQueue(extracted);
     for (int i = 0; i < n; i++)
         delete [] used[i];
     delete [] used;

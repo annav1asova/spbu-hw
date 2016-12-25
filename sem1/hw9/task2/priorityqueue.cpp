@@ -1,4 +1,6 @@
 #include "priorityqueue.h"
+#include <iostream>
+using namespace std;
 
 struct QueueElement
 {
@@ -24,6 +26,7 @@ PriorityQueue* createQueue()
 QueueElement *createNewElement(Point *p, int key, QueueElement *next)
 {
     QueueElement *newElement = new QueueElement;
+    //std::cout << "created element " << newElement << "\n";
     newElement->next = next;
     newElement->point = p;
     newElement->key = key;
@@ -60,9 +63,12 @@ Point *extractMin(PriorityQueue *queue)
     if (isEmpty(queue))
         return nullptr;
 
-    Point *p = queue->head->point;
+    QueueElement *temp = queue->head;
+    Point *p = temp->point;
     queue->head = queue->head->next;
     queue->size--;
+    delete temp;
+    //std::cout << "deleted element " << temp << "\n";
     return p;
 }
 
@@ -79,9 +85,13 @@ void deleteQueue(PriorityQueue *queue)
         delete toDelete->point;
         queue->head = queue->head->next;
         delete toDelete;
+        //std::cout << "deleted element " << toDelete << "\n";
+        //std::cout << "deleted Point " << toDelete->point << "\n";
     }
     delete queue->head->point;
+    //std::cout << "deleted Point " << queue->head->point << "\n";
     delete queue->head;
+    //std::cout << "deleted element " << queue->head << "\n";
     delete queue;
 }
 
@@ -133,9 +143,11 @@ void remove(PriorityQueue *queue, int x, int y)
 
     QueueElement *toDelete = temp->next;
     temp->next = temp->next->next;
+    delete toDelete->point;
     delete toDelete;
+    //std::cout << "deleted Point " << toDelete->point << "\n";
+    //std::cout << "deleted element " << toDelete << "\n";
     queue->size--;
-
 }
 
 bool isEmpty(PriorityQueue *queue)
