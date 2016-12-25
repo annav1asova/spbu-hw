@@ -4,18 +4,6 @@
 
 using namespace std;
 
-struct TreeNode
-{
-   int value;
-   TreeNode *leftChild;
-   TreeNode *rightChild;
-};
-
-struct Tree
-{
-    TreeNode *root;
-};
-
 Tree *createTree()
 {
     Tree *tree = new Tree;
@@ -114,38 +102,11 @@ int parse(char string[], int i, TreeNode *&node)
             i += 10;
         }
     }
-    if (string[i] == ')')
-    {
-        return i;
-    }
     return i;
 }
 
 void parseTree(char string[], int i, Tree *tree)
 {
-    parse(string, i, tree->root);
+    parse(string, i + 1, tree->root);
 }
 
-void decoding(Tree *tree, char encodedText[])
-{
-    ofstream fout;
-    fout.open("output.txt");
-    TreeNode *node = tree->root;
-    int i = 0;
-    while (encodedText[i] != '\n')
-    {
-        if (node->leftChild == nullptr && node->rightChild == nullptr)
-        {
-            fout << (char)node->value;
-            node = tree->root;
-        }
-        if (encodedText[i] == '0')
-            node = node->leftChild;
-
-        else
-            node = node->rightChild;
-        i++;
-    }
-    fout << endl;
-    fout.close();
-}

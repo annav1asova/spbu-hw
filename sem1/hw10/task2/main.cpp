@@ -1,5 +1,6 @@
 #include <iostream>
 #include "huffmantree.h"
+#include "decode.h"
 
 using namespace std;
 
