@@ -3,15 +3,15 @@ package sem2.hw1.task1;
 public class Stack<Type> {
     private Element head;
 
-    public Stack(){
-	head = null;
+    public Stack() {
+        head = null;
     }
 
     public void push(Type value){
         head = new Element(value, head);
     }
 
-    public Type pop(){
+    public Type pop() {
         if (isEmpty())
             return null;
 
@@ -20,7 +20,7 @@ public class Stack<Type> {
         return popped;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return head == null;
     }
 
