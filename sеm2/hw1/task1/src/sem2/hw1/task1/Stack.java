@@ -4,7 +4,7 @@ public class Stack<Type> {
     private Element head;
 
     public Stack(){
-
+	head = null;
     }
 
     public void push(Type value){
