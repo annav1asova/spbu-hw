@@ -31,20 +31,17 @@ public class List {
             return;
 
         Element temp = first;
-        if (temp.next == null && temp.value == value)
-        {
+        if (temp.next == null && temp.value == value) {
             first = null;
             return;
         }
 
-        if (temp.value == value)
-        {
+        if (temp.value == value) {
             first = temp.next;
             return;
         }
 
-        while (temp.next != null && temp.next.value != value)
-        {
+        while (temp.next != null && temp.next.value != value) {
             temp = temp.next;
         }
         if (temp.next == null)
@@ -57,6 +54,15 @@ public class List {
         return first == null;
     }
 
+    public void showList() {
+        Element temp = first;
+        while (temp != null) {
+            System.out.print(temp.value + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
     private class Element {
         private int value;
         private Element next;
@@ -65,6 +71,5 @@ public class List {
             this.value = value;
             this.next = next;
         }
-
     }
 }

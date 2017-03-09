@@ -8,11 +8,25 @@ public class Main {
         for (int i = 0; i < 10; i++)
             myList.add(i);
 
+        myList.showList();
+
         for (int i = 19; i >= 10; i--)
             myList.add(i);
 
-        for (int i = 0; i < 20; i++)
+        myList.showList();
+
+        myList.remove(0);
+        myList.remove(13);
+
+        for (int i = 1; i < 12; i++)
             myList.remove(i);
+
+        myList.showList();
+
+        myList.remove(12);
+        for (int i = 14; i < 20; i++)
+            myList.remove(i);
+        myList.showList();
 
         if (myList.isEmpty())
             System.out.println("It works");
