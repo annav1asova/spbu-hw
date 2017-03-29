@@ -1,14 +1,9 @@
 package sem2.hw1.task2;
 
 public class List {
-    private Element first;
-
-    public List() {
-        first = null;
-    }
+    private Element first = null;
 
     public void add(int value) {
-
         if (isEmpty()) {
             first = new Element(value, null);
             return;
