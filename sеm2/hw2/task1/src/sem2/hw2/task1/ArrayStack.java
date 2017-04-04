@@ -1,5 +1,6 @@
 package sem2.hw2.task1;
 
+/** Class for Stack on array */
 public class ArrayStack<Type> implements Stack<Type> {
     private Type array[];
     private int head;
@@ -13,15 +14,14 @@ public class ArrayStack<Type> implements Stack<Type> {
 
     public void push(Type value) {
         if (head == maxSize - 1)
-            System.out.println("your stack is filled");
+            throw new StackIsFilledException();
         else
             array[++head] = value;
     }
 
     public Type pop() {
         if (isEmpty()) {
-            System.out.println("your stack is empty");
-            return null;
+            throw new EmptyStackException();
         }
         Type popped = array[head];
         head--;
@@ -30,8 +30,7 @@ public class ArrayStack<Type> implements Stack<Type> {
 
     public Type peek() {
         if (isEmpty()) {
-            System.out.println("your stack is empty");
-            return null;
+            throw new EmptyStackException();
         }
         return array[head];
     }

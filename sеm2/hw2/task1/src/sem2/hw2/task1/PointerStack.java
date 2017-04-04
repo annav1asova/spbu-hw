@@ -1,21 +1,16 @@
 package sem2.hw2.task1;
 
+/** Class for Stack on pointers */
 public class PointerStack<Type> implements Stack<Type> {
     private Element head;
 
-    public PointerStack() {
-        head = null;
-    }
-
     public void push(Type value){
-        head = new Element(value, head
-        );
+        head = new Element(value, head);
     }
 
     public Type pop() {
         if (isEmpty()) {
-            System.out.println("your stack is empty");
-            return null;
+            throw new EmptyStackException();
         }
 
         Type popped = head.value;
@@ -29,8 +24,7 @@ public class PointerStack<Type> implements Stack<Type> {
 
     public Type peek() {
         if (isEmpty()) {
-            System.out.println("your stack is empty");
-            return null;
+            throw new EmptyStackException();
         }
         return head.value;
     }
