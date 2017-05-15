@@ -6,7 +6,7 @@ public class Calculator {
     private int max = 20;
 
     /**
-     * method that counts result of simplpe expression
+     * method that counts result of simple expression
      *
      * @param firstArgument first operand
      * @param secondArgument second operand

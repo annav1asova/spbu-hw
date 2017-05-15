@@ -52,6 +52,4 @@ public class CalculatorTest {
         double expected = firstValue / secondValue;
         Assert.assertTrue(result == expected);
     }
-
-
 }
