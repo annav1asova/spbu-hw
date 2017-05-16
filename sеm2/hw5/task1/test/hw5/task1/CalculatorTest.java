@@ -49,7 +49,7 @@ public class CalculatorTest {
     @Test
     public void testDividing() {
         double result = calculator.count(firstValue, secondValue, '/');
-        double expected = firstValue / secondValue;
+        double expected = (double)firstValue / secondValue;
         Assert.assertTrue(result == expected);
     }
 }
