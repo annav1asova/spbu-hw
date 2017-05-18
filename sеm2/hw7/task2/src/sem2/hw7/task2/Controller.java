@@ -23,16 +23,19 @@ public class Controller {
     /** array with numbers of buttons, where there is 'O' */
     ArrayList<Integer> arrayO = new ArrayList<>();
 
+    ArrayList<Button> buttons = new ArrayList<>();
+
     /** method that processes event of clicking on buttons */
     public void click(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         if (button.getText().length() == 0 && !isFinished) {
+            buttons.add(button);
             switch (opened % 2) {
                 case 0:
                     button.setText("X");
                     infoField.setText("Ход игрока O");
                     arrayX.add(Integer.parseInt(button.getId()));
-                    if (isTheGameFinished(arrayX)) {
+                    if (StateOfGame.isTheGameFinished(arrayX)) {
                         infoField.setText("X победил!");
                         isFinished = true;
                     }
@@ -41,7 +44,7 @@ public class Controller {
                     button.setText("O");
                     infoField.setText("Ход игрока X");
                     arrayO.add(Integer.parseInt(button.getId()));
-                    if (isTheGameFinished(arrayO)) {
+                    if (StateOfGame.isTheGameFinished(arrayO)) {
                         infoField.setText("O победил!");
                         isFinished = true;
                     }
@@ -54,58 +57,14 @@ public class Controller {
         }
     }
 
-    /**
-     * method that checks whether the game is finished for X/O
-     *
-     * @param filled array with numbers of filled with some player's symbol buttons
-     * @return true if the game is finished, false otherwise
-     */
-    public boolean isTheGameFinished(ArrayList<Integer> filled) {
-        if (filled.size() >= 3) {
-            for (int i = 1; i <= 7; i += 3) {
-                if (isRowFilled(i, filled)) {
-                    return true;
-                }
-            }
-            for (int i = 1; i <= 3; i++) {
-                if (isColumnFilled(i, filled)) {
-                    return true;
-                }
-            }
-            if (isDiagonalFilled(filled)) {
-                return true;
-            }
+    public void newGame(ActionEvent actionEvent) {
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).setText("");
+            arrayX.clear();
+            arrayO.clear();
+            isFinished = false;
+            opened = 0;
+            infoField.setText("Ход игрока X");
         }
-        return false;
-    }
-
-    /**
-     * method that checks whether the diagonal is filled
-     *
-     * @param filled array with numbers of filled with some player's symbol buttons
-     * @return true if some diagonal is filled, false otherwise
-     */
-    private boolean isDiagonalFilled(ArrayList<Integer> filled) {
-        return (filled.contains(1) && filled.contains(5) && filled.contains(9)) || (filled.contains(3) && filled.contains(5) && filled.contains(7));
-    }
-
-    /** method that checks whether the column is filled
-     *
-     * @param indexOfColumn index of column
-     * @param filled array with numbers of filled with some player's symbol buttons
-     * @return true if this column is filled, false otherwise
-     */
-    private boolean isColumnFilled(int indexOfColumn, ArrayList<Integer> filled) {
-        return filled.contains(indexOfColumn) && filled.contains(indexOfColumn + 3) && filled.contains(indexOfColumn + 6);
-    }
-
-    /** method that checks whether the column is filled
-     *
-     * @param indexOfRow index of column
-     * @param filled array with numbers of filled with some player's symbol buttons
-     * @return true if this row is filled, false otherwise
-     */
-    private boolean isRowFilled(int indexOfRow, ArrayList<Integer> filled) {
-        return filled.contains(indexOfRow) && filled.contains(indexOfRow + 1) && filled.contains(indexOfRow + 2);
     }
 }
