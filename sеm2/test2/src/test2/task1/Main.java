@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    int size = 5;
+    int size = 4;
     private GridPane gridPane = new GridPane();
     private GenerateNumbers generator = new GenerateNumbers(size);
     private Button[][] buttons = new Button[size][size];
@@ -84,10 +84,10 @@ public class Main extends Application {
                 buttons[firstOpenedIndexI][firstOpenedIndexJ].setText("");
                 opened[i][j] = false;
                 opened[firstOpenedIndexI][firstOpenedIndexJ] = false;
-                currentStateOfGame = 0;
             } else {
                 openedPairs += 2;
             }
+            currentStateOfGame = 0;
         }
         if (openedPairs == size * size) {
             System.out.println("Вы победили!");
