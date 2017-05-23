@@ -5,7 +5,7 @@ import java.lang.reflect.*;
 
 /** Class that prints full description of class */
 public class ClassDescription {
-    
+
     /**
      * method that prints description of class
      *
@@ -191,7 +191,7 @@ public class ClassDescription {
     /**
      * method that prints all modifiers, in case if it is modifiers of interface, it removes modifier 'abstract'
      *
-     * @param mod
+     * @param mod number that describes which modifiers some object has, and which has not
      */
     private static void printModifiers(int mod) {
         String modsToString = Modifier.toString(mod);
@@ -219,12 +219,13 @@ public class ClassDescription {
      * @return string (something like 'int param0, String[] param1'
      */
     private String getParameters(Class[] params) {
-        String p = "";
+        StringBuilder builder  = new StringBuilder();;
         for (int i = 0; i < params.length; i++) {
-            if (i > 0) p += ", ";
-            p += getType(params[i]) + " param" + i;
+            if (i > 0)
+                builder.append(", ");
+            builder.append(getType(params[i]) + " param" + i);
         }
-        return p;
+        return builder.toString();
     }
 
     /**

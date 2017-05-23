@@ -44,6 +44,7 @@ public class ClassDescriptionTest {
         System.setOut(prev);
         printStream.close();
 
+        classDescription.print(TestClass.class);
         String result = byteArrayOutputStream.toString();
         Assert.assertTrue(result.equals(expected));
     }
