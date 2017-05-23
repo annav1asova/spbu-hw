@@ -5,11 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
 
 /** Test-class for QuickSorter */
 public class QuickSorterTest {
     /** size of array */
-    int size = 1000000;
+    int size = 8000000;
     /** array that will be sorted by threadedQuickSorter */
     int arrayThreaded[] = new int[size];
     /** array that will be sorted by nonThreadedQuickSorter */
@@ -38,9 +39,8 @@ public class QuickSorterTest {
     @Test
     public void testThreaded() {
         long before = System.currentTimeMillis();
-        QuickSorter threadedQuickSorter = new ThreadedQuickSort(size /
-                (ThreadedQuickSort.MAX_THREADS), arrayThreaded, 0, arrayThreaded.length - 1);
-        threadedQuickSorter.sort(arrayThreaded);
+        new ForkJoinPool().invoke(new ThreadedQuickSort(size /
+                (ThreadedQuickSort.MAX_THREADS), arrayThreaded, 0, arrayThreaded.length - 1));
         long after = System.currentTimeMillis();
         long secondTime = after - before;
         System.out.println("Threaded quickSort time: " + secondTime);

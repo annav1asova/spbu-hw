@@ -38,13 +38,12 @@ public class ThreadedQuickSort extends RecursiveAction implements QuickSorter {
         Partition partition = new Partition();
         int i = partition.split(array, start, end);
 
-        if (sizeOfCurrentPiece >= minParitionSize) {
-            if (i - 1 > start) {
-                invokeAll(new ThreadedQuickSort(minParitionSize, array, start, i - 1));
-            }
-            if (end > i) {
-                invokeAll(new ThreadedQuickSort(minParitionSize, array, i, end));
-            }
+        if (sizeOfCurrentPiece >= minParitionSize && getSurplusQueuedTaskCount() <= 2) {
+            ThreadedQuickSort first = new ThreadedQuickSort(minParitionSize, array, start, i - 1);
+            ThreadedQuickSort second = new ThreadedQuickSort(minParitionSize, array, i, end);
+            second.fork();
+            first.invoke();
+            second.join();
         } else {
             actualSort(minParitionSize, array, start, i - 1);
             actualSort(minParitionSize, array, i, end);
