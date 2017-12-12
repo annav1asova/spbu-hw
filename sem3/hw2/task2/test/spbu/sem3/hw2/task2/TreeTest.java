@@ -25,9 +25,9 @@ public class TreeTest {
         tree.add(10);
         assertEquals(tree.printTree(), " (5 (4) (9 (10)))");
     }
-    
+
     @Test
-    public void removeNodeWothoutChildrenTest() {
+    public void removeNodeWithoutChildrenTest() {
         Tree<Integer> tree = new Tree<>();
         tree.add(5);
         tree.add(9);
@@ -75,5 +75,25 @@ public class TreeTest {
         ArrayList<Integer> expected = new ArrayList<>(actual);
         Collections.sort(expected);
         Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void foreachTest() {
+        Tree<String> tree = new Tree<>();
+        tree.add("abaca");
+        tree.add("dabacaba");
+        tree.add("ohoho");
+        tree.add("qq");
+        tree.add("word");
+        tree.add("anotherWord");
+        tree.add("lastWord");
+        ArrayList<String> actual = new ArrayList<>();
+        for (String s: tree) {
+            actual.add(s);
+        }
+        ArrayList<String> expected = new ArrayList<>(actual);
+        Collections.sort(expected);
+        Assert.assertEquals(actual, expected);
+        Assert.assertTrue(actual.size() == 7);
     }
 }
