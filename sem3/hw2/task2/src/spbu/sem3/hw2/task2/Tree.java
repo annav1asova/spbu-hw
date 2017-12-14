@@ -66,6 +66,26 @@ public class Tree<T extends Comparable> implements Iterable<T>{
         return node;
     }
 
+    /* method that returns true if value contains in tree and false otherwise. */
+    public boolean find(T value) {
+        return find(value, root);
+    }
+
+    /* method that returns true if value contains in tree with given node as its root and false otherwise. */
+    private boolean find(T value, Node<T> node) {
+        if (node == null) {
+            return false;
+        }
+        int sign = node.value.compareTo(value);
+        if (sign > 0) {
+             return find(value, node.left);
+        } else if (sign < 0) {
+           return find(value, node.right);
+        } else {
+            return true;
+        }
+    }
+
     /* method that returns true if tree is empty and false otherwise. */
     public boolean isEmpty() {
         return root == null;

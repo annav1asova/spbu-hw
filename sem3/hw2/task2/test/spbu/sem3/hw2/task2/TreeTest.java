@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -24,6 +26,23 @@ public class TreeTest {
         tree.add(4);
         tree.add(10);
         assertEquals(tree.printTree(), " (5 (4) (9 (10)))");
+    }
+
+    @Test
+    public void findTest() {
+        int size = 1024;
+        Tree<Integer> tree = new Tree<>();
+        Random r = new Random();
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            int value = r.nextInt();
+            tree.add(value);
+            list.add(value);
+        }
+        for (int i = 0; i < size; i++) {
+            int value = r.nextInt();
+            assertEquals(tree.find(value), list.contains(value));
+        }
     }
 
     @Test
