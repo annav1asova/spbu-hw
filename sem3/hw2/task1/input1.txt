@@ -1,0 +1,26 @@
+7
+0 1 0 0 0 0 0
+1 0 1 1 1 0 0
+0 1 0 0 0 1 0
+0 1 0 0 0 0 0
+0 1 0 0 0 0 0
+0 0 1 0 0 0 1
+0 0 0 0 0 1 0
+MacOs
+Windows
+Linux
+Windows
+Windows
+MacOs
+Windows
+1
+1
+
+______
+
+format:
+n - number of computers
+n*n adjacency matrix
+n strings containing os of each computer
+k - number of already infected computers
+k numbers - numbers of infected computers
