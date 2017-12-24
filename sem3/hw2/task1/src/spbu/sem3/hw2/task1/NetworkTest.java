@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
@@ -17,7 +18,7 @@ public class NetworkTest {
     /** checks whether process will end (all computers in network became infected). */
     @Test
     public void testProcessWillEnd() throws FileNotFoundException {
-        network = createNetwork("input1.txt");
+        network = createNetwork("input1.txt", new TrueRandomGenerator());
         while (!network.wholeNetworkIsInfected()) {
             network.makeStep();
         }
@@ -30,7 +31,7 @@ public class NetworkTest {
     /** checks that some computers can't be infected on given steps. */
     @Test
     public void testStepByStep() throws FileNotFoundException {
-        network = createNetwork("input1.txt");
+        network = createNetwork("input1.txt", new TrueRandomGenerator());
         network.makeStep();
         boolean[] infections = network.getCurrentState();
         for (int i = 2; i < 7; i++) {
@@ -53,7 +54,7 @@ public class NetworkTest {
         int macWasInfected = 0;
         int linuxWasInfected = 0;
         for (int i = 0; i < amountOfTheSameTest; i++) {
-            network = createNetwork("input2.txt");
+            network = createNetwork("input2.txt", new TrueRandomGenerator());
             network.makeStep();
             boolean[] infections = network.getCurrentState();
             if (infections[1])
@@ -68,7 +69,97 @@ public class NetworkTest {
         assertEquals(linuxWasInfected, amountOfTheSameTest * 0.1, amountOfTheSameTest * 0.1 / 10);
     }
 
-    private Network createNetwork(String filePath) throws FileNotFoundException {
+    /** tests order of infections with random generator, that always infects computer. */
+    @Test
+    public void testOrderOfInfections() throws FileNotFoundException {
+        network = createNetwork("input3.txt", new NotReallyRandomGenerator());
+
+        ArrayList<ArrayList<Integer>> expectedInfections = generateExpectations();
+
+        for (int i = 0; i < expectedInfections.size(); i++) {
+            ArrayList<Integer> currentExpectations = expectedInfections.get(i);
+            boolean[] infections = network.getCurrentState();
+            for (int j = 0; j < 12; j++) {
+                assertTrue(infections[j] == currentExpectations.contains(j));
+            }
+            network.makeStep();
+        }
+    }
+
+    /** tests order of infections with random generator, that infects only computers with Windows os. */
+    @Test
+    public void testOrderOfWindowsInfections() throws FileNotFoundException {
+        network = createNetwork("input3.txt", new InfectingWindowsGenerator());
+
+        network.makeStep();
+        boolean[] infections = network.getCurrentState();
+        for (int i = 0; i < 12; i++) {
+            assertTrue(infections[i] == (i == 0 || i == 1 || i == 5));
+        }
+        network.makeStep();
+        infections = network.getCurrentState();
+        for (int i = 0; i < 12; i++) {
+            assertTrue(infections[i] == (i == 0 || i == 1 || i == 5 || i == 2 || i == 7));
+        }
+
+        for (int i = 0; i < 10; i++) {
+            network.makeStep();
+        }
+        infections = network.getCurrentState();
+        for (int i = 0; i < 12; i++) {
+            assertTrue(infections[i] == (i == 0 || i == 1 || i == 5 || i == 2 || i == 7));
+        }
+    }
+
+//     for this network and always-zero random generator
+//            1---2---3---4---5
+//            |
+//            6----7
+//            |
+//            8
+//            |
+//            9---10
+//            |
+//            11
+//            |
+//            12
+    private ArrayList<ArrayList<Integer>> generateExpectations() {
+        ArrayList<Integer> initially = new ArrayList<>();
+        initially.add(0);
+
+        ArrayList<Integer> afterOneStep = new ArrayList<>(initially);
+        afterOneStep.add(1);
+        afterOneStep.add(5);
+
+        ArrayList<Integer> afterTwoSteps = new ArrayList<>(afterOneStep);
+        afterTwoSteps.add(2);
+        afterTwoSteps.add(6);
+        afterTwoSteps.add(7);
+
+        ArrayList<Integer> afterThreeSteps = new ArrayList<>(afterTwoSteps);
+        afterThreeSteps.add(3);
+        afterThreeSteps.add(8);
+
+        ArrayList<Integer> afterFourSteps = new ArrayList<>(afterThreeSteps);
+        afterFourSteps.add(4);
+        afterFourSteps.add(9);
+        afterFourSteps.add(10);
+
+        ArrayList<Integer> afterFiveSteps = new ArrayList<>(afterFourSteps);
+        afterFiveSteps.add(11);
+
+        ArrayList<ArrayList<Integer>> expectations = new ArrayList<>();
+        expectations.add(initially);
+        expectations.add(afterOneStep);
+        expectations.add(afterTwoSteps);
+        expectations.add(afterThreeSteps);
+        expectations.add(afterFourSteps);
+        expectations.add(afterFiveSteps);
+
+        return expectations;
+    }
+
+    private Network createNetwork(String filePath, RandomGenerator random) throws FileNotFoundException {
         Scanner sc = new Scanner(new File(filePath));
         int n = sc.nextInt();
         int[][] adjacencyMatrix = new int[n][n];
@@ -98,6 +189,20 @@ public class NetworkTest {
             alreadyInfected[i] = sc.nextInt() - 1;
         }
 
-        return new Network(adjacencyMatrix, computers, alreadyInfected);
+        return new Network(adjacencyMatrix, computers, alreadyInfected, random);
+    }
+
+    private class NotReallyRandomGenerator implements RandomGenerator {
+        @Override
+        public int generate(int max) {
+            return 0;
+        }
+    }
+
+    private class InfectingWindowsGenerator implements RandomGenerator {
+        @Override
+        public int generate(int max) {
+            return 20;
+        }
     }
 }

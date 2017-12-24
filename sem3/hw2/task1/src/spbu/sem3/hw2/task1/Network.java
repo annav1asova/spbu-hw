@@ -2,7 +2,6 @@ package spbu.sem3.hw2.task1;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 /** class for network. */
@@ -11,9 +10,9 @@ public class Network {
     private Computer[] computers;
     private int numberOfAll;
     private int amountOfAlreadyInfected;
-    private Random r;
+    private RandomGenerator random;
 
-    public Network(int[][] adjacencyMatrix, Computer[] computers, int[] alreadyInfected) {
+    public Network(int[][] adjacencyMatrix, Computer[] computers, int[] alreadyInfected, RandomGenerator random) {
         this.adjacencyMatrix = adjacencyMatrix;
         this.computers = computers;
         numberOfAll = adjacencyMatrix.length;
@@ -21,7 +20,7 @@ public class Network {
             computers[i].setInfected();
         }
         amountOfAlreadyInfected = alreadyInfected.length;
-        r = new Random();
+        this.random = random;
     }
 
     /** this method makes one step trying to infect computers in network. */
@@ -66,7 +65,7 @@ public class Network {
     }
 
     private int getRandomNumber() {
-        return r.nextInt(101);
+        return random.generate(101);
     }
 
     private ArrayList<Computer> getNeighboringComputers(int i) {
