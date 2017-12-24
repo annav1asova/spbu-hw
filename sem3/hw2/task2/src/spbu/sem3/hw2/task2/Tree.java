@@ -14,7 +14,7 @@ public class Tree<T extends Comparable> implements Iterable<T>{
     }
 
     /* method that adds some value to tree that has given node as its root. */
-    private Node add(T value, Node<T> node) {
+    private Node<T> add(T value, Node<T> node) {
         if (node == null) {
             node = new Node(value, null, null);
             return node;
@@ -37,7 +37,7 @@ public class Tree<T extends Comparable> implements Iterable<T>{
     }
 
     /* method that removes value from tree with given node as its root. */
-    private Node remove(T value, Node<T> node) {
+    private Node<T> remove(T value, Node<T> node) {
         if (node == null) {
             return node;
         }
@@ -54,7 +54,7 @@ public class Tree<T extends Comparable> implements Iterable<T>{
             } else if (node.hasOnlyRightChild()) {
                 node = node.right;
             } else {
-                Node temp = node.right;
+                Node<T> temp = node.right;
                 while (temp.left != null) {
                     temp = temp.left;
                 }
@@ -98,13 +98,12 @@ public class Tree<T extends Comparable> implements Iterable<T>{
     private String printTree(Node<T> node) {
         if (node == null)
             return "";
-        StringBuilder sb = new StringBuilder();
-        sb.append(" (");
-        sb.append(node.value);
-        sb.append(printTree(node.left));
-        sb.append(printTree(node.right));
-        sb.append(")");
-        return sb.toString();
+        String sb = " (" +
+                node.value +
+                printTree(node.left) +
+                printTree(node.right) +
+                ")";
+        return sb;
     }
 
     /* method that generates iterator for tree. */
@@ -141,7 +140,7 @@ public class Tree<T extends Comparable> implements Iterable<T>{
         Stack<Node> stack;
 
         /* creation of iterator. */
-        public TreeIterator(Node root) {
+        public TreeIterator(Node<T> root) {
             stack = new Stack<>();
             while (root != null) {
                 stack.push(root);
@@ -161,8 +160,8 @@ public class Tree<T extends Comparable> implements Iterable<T>{
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            Node next = stack.pop();
-            Node newRoot = next.right == null ? null : next.right;
+            Node<T> next = stack.pop();
+            Node<T> newRoot = next.right == null ? null : next.right;
             while (newRoot != null) {
                 stack.push(newRoot);
                 newRoot = newRoot.left;
