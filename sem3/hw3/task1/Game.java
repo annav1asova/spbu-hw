@@ -30,7 +30,7 @@ public class Game extends JPanel implements Runnable{
         while (running) {
             repaint();
             try {
-                Thread.sleep(50);
+                Thread.sleep(30);
             } catch (InterruptedException ex) {}
         }
     }

@@ -17,7 +17,7 @@ public class Tank extends JPanel {
     private static final int TANK_WIDTH = 50;
     private static final int TANK_HEIGHT = 20;
     private static final int BARREL_WIDTH = 30;
-    private static final int BARREL_HEIGHT = 5;
+    private static final int BARREL_HEIGHT = 7;
     private static final Color TANK_COLOR = new Color(238, 101, 197);
     private static final int TANK_STEP = 5;
     private static final double BARREL_STEP = 0.1;
@@ -71,7 +71,7 @@ public class Tank extends JPanel {
     private void paintBarrel(Graphics2D g) {
         AffineTransform tx = AffineTransform.getRotateInstance(rotationOfBarrel, location.x, location.y);
         g.setTransform(tx);
-        g.fillRect(location.x, location.y, BARREL_WIDTH, BARREL_HEIGHT);
+        g.fillRect(location.x, location.y - BARREL_HEIGHT / 2, BARREL_WIDTH, BARREL_HEIGHT);
         g.setTransform(new AffineTransform());
     }
 

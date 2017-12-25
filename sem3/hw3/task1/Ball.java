@@ -6,6 +6,7 @@ public class Ball {
     private double angle;
     private long startTime;
     private final static double VELOCITY = 60;
+    private final static double COEFFICIENT_TIME = 3;
     private final static double g = 9.8;
     private final static int SIZE_X = 700;
     private final static int SIZE_Y = 500;
@@ -22,7 +23,7 @@ public class Ball {
         double t = timeFromStart(time);
         int x = newXCoordinate(t);
         int y = newYCoordinate(t);
-        g.fillOval(x, y, BALL_SIZE, BALL_SIZE);
+        g.fillOval(x - BALL_SIZE / 2, y - BALL_SIZE / 2, BALL_SIZE, BALL_SIZE);
         return isBallOnScreen(x, y);
     }
 
@@ -35,10 +36,10 @@ public class Ball {
     }
 
     private int newYCoordinate(double time) {
-        return (int)(startY + VELOCITY * Math.sin(angle) * time + g * time * time / 2.0);
+        return (int)(startY + VELOCITY * Math.sin(angle) * time + g *  time * time / 2.0);
     }
 
     private double timeFromStart(long time) {
-        return (time - startTime) / 1000.0;
+        return COEFFICIENT_TIME * (time - startTime) / 1000.0;
     }
 }
