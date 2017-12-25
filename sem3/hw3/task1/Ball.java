@@ -6,7 +6,7 @@ public class Ball {
     private double angle;
     private long startTime;
     private final static double VELOCITY = 60;
-    private final static double COEFFICIENT_TIME = 3;
+    private final static double COEFFICIENT_TIME = 4;
     private final static double g = 9.8;
     private final static int SIZE_X = 700;
     private final static int SIZE_Y = 500;
