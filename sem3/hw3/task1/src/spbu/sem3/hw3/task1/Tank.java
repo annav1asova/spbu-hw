@@ -1,3 +1,5 @@
+package spbu.sem3.hw3.task1;
+
 import javafx.geometry.Side;
 
 import javax.swing.*;

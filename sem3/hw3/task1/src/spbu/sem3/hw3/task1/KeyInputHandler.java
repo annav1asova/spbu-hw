@@ -1,4 +1,7 @@
+package spbu.sem3.hw3.task1;
+
 import javafx.geometry.Side;
+import spbu.sem3.hw3.task1.Game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
