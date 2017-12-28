@@ -22,14 +22,14 @@ public class Client {
             out = new PrintWriter(socket.getOutputStream(), true);
             out.println("JOIN");
 
-            JLabel rulesFirstPart = new JLabel("Use up and down arrows to rotate gun; left and right arrows to move tank.");
+            JLabel rulesFirstPart = new JLabel("Use up and down arrows to rotate gun; left and right arrows to move tank");
             JLabel rulesSecondPart  = new JLabel("Use S and W keys to change velocity of balls; A and D keys to change their size");
 
             Container board = frame.getContentPane();
             board.setLayout(new BoxLayout(board, BoxLayout.Y_AXIS));
+            board.add(rulesFirstPart);
             board.add(ui);
             ui.start();
-            board.add(rulesFirstPart);
             board.add(rulesSecondPart);
 
             Resender resend = new Resender();
