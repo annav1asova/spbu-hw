@@ -4,7 +4,6 @@ import javafx.geometry.Side;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,13 +27,13 @@ public class Tank extends JPanel {
         this.landscape = landscape;
         int x = 50;
         location = new Point(x, landscape.getMountainHeight(x));
-        rotationOfBarrel = Math.toRadians(-45);
+        rotationOfBarrel = Math.toRadians(45);
         balls = new ArrayList<>();
     }
 
     public void go(Side side) {
         if (side == LEFT)
-            location.x -= TANK_STEP;
+            location.x-= TANK_STEP;
         else if (side == RIGHT)
             location.x += TANK_STEP;
         location.y = landscape.getMountainHeight(location.x);
@@ -54,7 +53,7 @@ public class Tank extends JPanel {
         double cos = Math.cos(rotationOfBarrel);
         double sin = Math.sin(rotationOfBarrel);
         int startX = location.x + (int)(BARREL_WIDTH * cos);
-        int startY = location.y + (int)(BARREL_WIDTH * sin);
+        int startY = location.y - (int)(BARREL_WIDTH * sin);
         balls.add(new Ball(startX, startY, rotationOfBarrel));
     }
 
@@ -71,10 +70,13 @@ public class Tank extends JPanel {
     }
 
     private void paintBarrel(Graphics2D g) {
-        AffineTransform tx = AffineTransform.getRotateInstance(rotationOfBarrel, location.x, location.y);
-        g.setTransform(tx);
-        g.fillRect(location.x, location.y - BARREL_HEIGHT / 2, BARREL_WIDTH, BARREL_HEIGHT);
-        g.setTransform(new AffineTransform());
+//        AffineTransform tx = AffineTransform.getRotateInstance(rotationOfBarrel, location.x, location.y);
+//        g.setTransform(tx);
+//        g.fillRect(location.x, location.y - BARREL_HEIGHT / 2, BARREL_WIDTH, BARREL_HEIGHT);
+//        g.setTransform(new AffineTransform());
+        g.setStroke(new BasicStroke(BARREL_HEIGHT));
+        g.drawLine(location.x, location.y, location.x + (int)(Math.cos(rotationOfBarrel) * BARREL_WIDTH), location.y - (int)(Math.sin(rotationOfBarrel) * BARREL_WIDTH));
+
     }
 
     private void paintBalls(Graphics2D g) {

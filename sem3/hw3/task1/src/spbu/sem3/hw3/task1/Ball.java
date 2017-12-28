@@ -38,7 +38,7 @@ public class Ball {
     }
 
     private int newYCoordinate(double time) {
-        return (int)(startY + VELOCITY * Math.sin(angle) * time + g *  time * time / 2.0);
+        return (int)(startY - VELOCITY * Math.sin(angle) * time + g *  time * time / 2.0);
     }
 
     private double timeFromStart(long time) {

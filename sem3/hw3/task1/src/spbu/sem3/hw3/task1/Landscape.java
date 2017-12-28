@@ -1,9 +1,8 @@
 package spbu.sem3.hw3.task1;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class Landscape extends JPanel {
+public class Landscape {
     private static final double X[] = {0, 100, 200, 350, 400, 470, 500, 530, 600, 700};
     private static final double Y[] = {250, 230, 200, 240, 300, 250, 100, 120, 350, 400};
     

@@ -1,9 +1,5 @@
 package spbu.sem3.hw3.task1;
 
-import spbu.sem3.hw3.task1.Game;
-import spbu.sem3.hw3.task1.KeyInputHandler;
-import spbu.sem3.hw3.task1.Landscape;
-
 import javax.swing.*;
 
 public class Main {
