@@ -1,7 +1,6 @@
 package spbu.sem3.hw4.task1;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 public class TankPainter {
     private static final Color TANK_COLOR = new Color(238, 101, 197);
@@ -23,9 +22,11 @@ public class TankPainter {
 
     private static void paintBarrel(Graphics2D g, int locationX, double rotationOfBarrel, Landscape landscape) {
         int locationY = landscape.getMountainHeight(locationX);
-        AffineTransform tx = AffineTransform.getRotateInstance(rotationOfBarrel, locationX, locationY);
-        g.setTransform(tx);
-        g.fillRect(locationX, locationY - BARREL_HEIGHT / 2, BARREL_WIDTH, BARREL_HEIGHT);
-        g.setTransform(new AffineTransform());
+//        AffineTransform tx = AffineTransform.getRotateInstance(rotationOfBarrel, locationX, locationY);
+//        g.setTransform(tx);
+//        g.fillRect(locationX, locationY - BARREL_HEIGHT / 2, BARREL_WIDTH, BARREL_HEIGHT);
+//        g.setTransform(new AffineTransform());
+        g.setStroke(new BasicStroke(BARREL_HEIGHT));
+        g.drawLine(locationX, locationY, locationX + (int)(Math.cos(rotationOfBarrel) * BARREL_WIDTH), locationY - (int)(Math.sin(rotationOfBarrel) * BARREL_WIDTH));
     }
 }

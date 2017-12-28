@@ -1,6 +1,8 @@
 package spbu.sem3.hw4.task1;
 
-public class Ball {
+import java.io.Serializable;
+
+public class Ball implements Serializable {
     private int startX;
     private int startY;
     private double angle;
@@ -43,7 +45,7 @@ public class Ball {
     }
 
     public int newYCoordinate(double time) {
-        return (int)(startY + velocity * Math.sin(angle) * time + g *  time * time / 2.0);
+        return (int)(startY - velocity * Math.sin(angle) * time + g *  time * time / 2.0);
     }
 
     public double timeFromStart(long time) {

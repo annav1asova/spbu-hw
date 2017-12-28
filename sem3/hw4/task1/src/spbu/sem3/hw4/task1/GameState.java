@@ -27,9 +27,9 @@ public class GameState implements Serializable {
     public void join(int index) {
         Tank newTank = null;
         if (index == 0) {
-            newTank = new Tank(landscape, 100, Math.toRadians(-45), 60, 10);
+            newTank = new Tank(landscape, 100, Math.toRadians(45), 60, 10);
         } else if (index == 1) {
-            newTank = new Tank(landscape, 300, Math.toRadians(-135), 60, 10);
+            newTank = new Tank(landscape, 300, Math.toRadians(135), 60, 10);
         }
         tanks.add(newTank);
     }

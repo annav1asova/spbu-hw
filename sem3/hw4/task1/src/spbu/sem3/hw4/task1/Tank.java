@@ -2,8 +2,6 @@ package spbu.sem3.hw4.task1;
 
 import javafx.geometry.Side;
 
-import java.util.Random;
-
 import static javafx.geometry.Side.*;
 
 public class Tank {
@@ -51,8 +49,9 @@ public class Tank {
         double cos = Math.cos(rotationOfBarrel);
         double sin = Math.sin(rotationOfBarrel);
         int startX = locationX + (int)(BARREL_WIDTH * cos);
-        int startY = landscape.getMountainHeight(locationX) + (int)(BARREL_WIDTH * sin);
-        Random r = new Random();
+        int startY = landscape.getMountainHeight(locationX) - (int)(BARREL_WIDTH * sin);
+
+        //Random r = new Random();
         return new Ball(startX, startY, rotationOfBarrel, velocityOfBalls, sizeOfBalls);
     }
 
