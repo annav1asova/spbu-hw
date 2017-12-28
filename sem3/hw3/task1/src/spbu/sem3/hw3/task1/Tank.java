@@ -54,7 +54,7 @@ public class Tank extends JPanel {
         double sin = Math.sin(rotationOfBarrel);
         int startX = location.x + (int)(BARREL_WIDTH * cos);
         int startY = location.y - (int)(BARREL_WIDTH * sin);
-        balls.add(new Ball(startX, startY, rotationOfBarrel));
+        balls.add(new Ball(startX, startY, rotationOfBarrel, landscape));
     }
 
     public void paint(Graphics graphics) {
@@ -70,13 +70,8 @@ public class Tank extends JPanel {
     }
 
     private void paintBarrel(Graphics2D g) {
-//        AffineTransform tx = AffineTransform.getRotateInstance(rotationOfBarrel, location.x, location.y);
-//        g.setTransform(tx);
-//        g.fillRect(location.x, location.y - BARREL_HEIGHT / 2, BARREL_WIDTH, BARREL_HEIGHT);
-//        g.setTransform(new AffineTransform());
         g.setStroke(new BasicStroke(BARREL_HEIGHT));
         g.drawLine(location.x, location.y, location.x + (int)(Math.cos(rotationOfBarrel) * BARREL_WIDTH), location.y - (int)(Math.sin(rotationOfBarrel) * BARREL_WIDTH));
-
     }
 
     private void paintBalls(Graphics2D g) {
