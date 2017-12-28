@@ -52,7 +52,7 @@ public class Tank {
         int startY = landscape.getMountainHeight(locationX) - (int)(BARREL_WIDTH * sin);
 
         //Random r = new Random();
-        return new Ball(startX, startY, rotationOfBarrel, velocityOfBalls, sizeOfBalls);
+        return new Ball(startX, startY, rotationOfBarrel, velocityOfBalls, sizeOfBalls, landscape);
     }
 
     public double getRotationOfBarrel() {

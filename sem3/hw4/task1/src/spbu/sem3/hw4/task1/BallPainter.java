@@ -10,20 +10,29 @@ public class BallPainter {
         Ball ball = null;
         while (iterator.hasNext()) {
             ball = (Ball)iterator.next();
-            boolean hasToBePainted = paintBall(g, ball);
+            boolean hasToBePainted = hasToBePainted(ball);
             if (!hasToBePainted) {
                 iterator.remove();
+            } else {
+                paintBall(g, ball);
             }
         }
     }
 
-    private static boolean paintBall(Graphics2D g, Ball ball) {
+    private static void paintBall(Graphics2D g, Ball ball) {
         long time = System.currentTimeMillis();
         double t = ball.timeFromStart(time);
         int x = ball.newXCoordinate(t);
         int y = ball.newYCoordinate(t);
         int ballSize = ball.getSize();
         g.fillOval(x - ballSize / 2, y - ballSize / 2, ballSize, ballSize);
-        return ball.isBallOnScreen(x, y);
+    }
+
+    private static boolean hasToBePainted(Ball ball) {
+        long time = System.currentTimeMillis();
+        double t = ball.timeFromStart(time);
+        int x = ball.newXCoordinate(t);
+        int y = ball.newYCoordinate(t);
+        return !ball.isBallOnMountain(x, y);
     }
 }

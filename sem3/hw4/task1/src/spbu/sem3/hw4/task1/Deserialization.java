@@ -25,7 +25,7 @@ public class Deserialization {
             double velocity = Double.parseDouble(array[k++]);
             int size = Integer.parseInt(array[k++]);
 
-            Ball ball = new Ball(startX, startY, angle, time, velocity, size);
+            Ball ball = new Ball(startX, startY, angle, time, velocity, size, new Landscape());
             balls.add(ball);
         }
 
