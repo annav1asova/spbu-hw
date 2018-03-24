@@ -1,0 +1,1 @@
+nPowers n = take n [2 ^ x | x <- [0..]]
