@@ -1,0 +1,1 @@
+list n = map (\x -> map (\y -> (if y > x then y else x)) [1..n]) [1..n] 
